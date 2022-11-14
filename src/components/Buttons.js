@@ -11,19 +11,12 @@ const Buttons = (props) => {
         ? <button
           key={el}
           className={styles['span-2']}
-          onClick={() => props.handleNumber(el)}
+          onClick={() => props.handleClick(el)}
         >{el}
         </button>
-        : !isNaN(parseFloat(el))
-          ? <button
+        : <button
             key={el}
-            onClick={() => props.handleNumber(el)}
-          >
-            {el}
-          </button>
-          : <button
-            key={el}
-            onClick={() => props.handleOperator(el)}
+            onClick={() => props.handleClick(el)}
           >
             {el}
           </button>
