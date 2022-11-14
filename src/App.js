@@ -38,6 +38,16 @@ function App() {
   }
 
   const calcOperation = (el) => {
+    if (result === 0) {
+      setResult(parseFloat(currentValue));
+      setOperators((prevState) => {
+        let newState = { ...prevState };
+        newState.current = el;
+        return newState;
+      });
+      return;
+    } 
+
     switch (operators.previous) {
       case '+':
         setResult(result + parseFloat(currentValue));
@@ -57,29 +67,28 @@ function App() {
       default:
         break;
     }
-    setOperators((prevState) => {
-      let newState = { ...prevState };
-      newState.current = el !== '=' ? el : '';
-      return newState;
-    });
+    if (el === '=') {
+      setOperators((prevState) => {
+        let newState = { ...prevState };
+        newState.previous = '=';
+        newState.current = el;
+        return newState;
+      });
+    } else {
+      setOperators((prevState) => {
+        let newState = { ...prevState };
+        newState.current = el;
+        return newState;
+      });
+    }
   }
 
-  const handleOperator = (el) => {
-    if (result === 0) {
-      setResult(parseFloat(currentValue));
-    } 
-    setIsOperatorActive(true);
-    calcOperation(el);
-  };
   const handleClick = (el) => {
     if (!isNaN(parseFloat(el))) {
       handleNumber(el);
       return;
-    } else if (el === "=") {
-      calcOperation(el);
-      setIsOperatorActive(false);
     } else {
-      handleOperator(el);
+      calcOperation(el);
       setIsOperatorActive(true);
     }
   };
