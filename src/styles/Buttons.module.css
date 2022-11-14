@@ -1,0 +1,16 @@
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+button {
+  padding: 1.5em
+}
+
+button:hover {
+  background-color: gray;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
