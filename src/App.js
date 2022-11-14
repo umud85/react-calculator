@@ -37,11 +37,6 @@ function App() {
     setCurrentValue(newValue.toString());
   }
 
-  const handleResult = () => {
-    setIsOperatorActive(false);
-    calcOperation();
-  }
-
   const calcOperation = (el) => {
     switch (operators.previous) {
       case '+':
@@ -64,7 +59,7 @@ function App() {
     }
     setOperators((prevState) => {
       let newState = { ...prevState };
-      newState.current = el !== 'undefined' ? el : '';
+      newState.current = el !== '=' ? el : '';
       return newState;
     });
   }
@@ -81,9 +76,11 @@ function App() {
       handleNumber(el);
       return;
     } else if (el === "=") {
-      handleResult();
+      calcOperation(el);
+      setIsOperatorActive(false);
     } else {
       handleOperator(el);
+      setIsOperatorActive(true);
     }
   };
   return (
