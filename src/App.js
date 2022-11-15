@@ -113,8 +113,13 @@ function App() {
         return newState;
       });
     } else {
-      calcOperation(el);
-      setIsOperatorActive(true);
+      if (result === 0 && currentValue === 0 && el === "-") {
+        setCurrentValue("-");
+        return;
+      } else {
+        calcOperation(el);
+        setIsOperatorActive(true);
+      }
     }
   };
   return (
