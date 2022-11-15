@@ -1,0 +1,4 @@
+- override current operator if pressed again
+- handle negative numbers as user input
+- add keyboard events
+- add styling

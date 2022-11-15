@@ -88,6 +88,22 @@ function App() {
     if (!isNaN(parseFloat(el)) || el === '.') {
       handleNumber(el);
       return;
+    } else if (el === "CE") {
+      setCurrentValue('0');
+      setOperators((prevState) => {
+        let newState = { ...prevState };
+        newState.current = '';
+        return newState;
+      });
+    } else if (el === "C") {
+      setResult(0);
+      setIsOperatorActive(false);
+      setOperators((prevState) => {
+        let newState = {...prevState};
+        newState.current = '';
+        newState.previous = '';
+        return newState;
+      });
     } else {
       calcOperation(el);
       setIsOperatorActive(true);
