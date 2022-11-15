@@ -18,7 +18,7 @@ function App() {
   const handleNumber = (el) => {
     let newValue = currentValue;
     // delete the zero at the beginning
-    if (result === 0 && currentValue === '0') {
+    if (currentValue === '0') {
       newValue = el;
     } else if (currentValue !== 0 && isOperatorActive) {
       newValue = el;
@@ -38,6 +38,14 @@ function App() {
   }
 
   const calcOperation = (el) => {
+    if (isOperatorActive) {
+      setOperators((prevState) => {
+        let newState = {...prevState};
+        newState.current = el;
+        return newState;
+      });
+      return;
+    }
     if (result === 0) {
       setResult(parseFloat(currentValue));
       setOperators((prevState) => {
