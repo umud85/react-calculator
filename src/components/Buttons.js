@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../styles/Buttons.module.css';
 
 const buttons = ["C", "CE", "%", "/", 7, 8, 9, "*",
-  4, 5, 6, "-", 1, 2, 3, "+", 0, ",", "="];
+  4, 5, 6, "-", 1, 2, 3, "+", 0, ".", "="];
 
 const Buttons = (props) => {
   return <div className={styles['keyboard']}>

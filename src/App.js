@@ -16,9 +16,9 @@ function App() {
   }, [result]);
 
   const handleNumber = (el) => {
-    let newValue = '';
+    let newValue = currentValue;
     // delete the zero at the beginning
-    if (currentValue === '0') {
+    if (result === 0 && currentValue === '0') {
       newValue = el;
     } else if (currentValue !== 0 && isOperatorActive) {
       newValue = el;
@@ -31,7 +31,7 @@ function App() {
     });
     } else {
       // concatenate user input
-      newValue = currentValue + el;
+      newValue += el;
     }
     setIsOperatorActive(false);
     setCurrentValue(newValue.toString());
@@ -48,21 +48,22 @@ function App() {
       return;
     } 
 
+    const val = parseFloat(parseFloat(currentValue).toFixed(4));
     switch (operators.previous) {
       case '+':
-        setResult(result + parseFloat(currentValue));
+        setResult(parseFloat(parseFloat(result + val).toFixed(4)));
         break;
       case '-':
-        setResult(result - parseFloat(currentValue)); 
+        setResult(parseFloat(parseFloat(result - val).toFixed(4))); 
         break;
       case '*':
-        setResult(result * parseFloat(currentValue));
+        setResult(parseFloat(parseFloat(result * val).toFixed(4)));
         break;
       case '/':
-        setResult(result / parseFloat(currentValue));
+        setResult(parseFloat(parseFloat(result / val).toFixed(4)));
         break;
       case '%':
-        setResult(result % parseFloat(currentValue));
+        setResult(parseFloat(parseFloat(result % val).toFixed(4)));
         break;
       default:
         break;
@@ -84,7 +85,7 @@ function App() {
   }
 
   const handleClick = (el) => {
-    if (!isNaN(parseFloat(el))) {
+    if (!isNaN(parseFloat(el)) || el === '.') {
       handleNumber(el);
       return;
     } else {
