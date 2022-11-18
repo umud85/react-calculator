@@ -1,17 +1,26 @@
 .keyboard {
+  border-bottom-left-radius: 10px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
 
 button {
-  padding: 0.7em;
-  font-size: 1.3rem;
+  border-width: 0.5px;
+  padding: 0.6em;
+  font-size: 1.5rem;
+  color: rgb(247, 241, 241);
+  background-color: rgba(155, 155, 155, 0.889);
 }
-
-button:hover {
-  background-color: gray;
-}
-
-.span-2 {
+button:nth-child(17) {
   grid-column: span 2;
+  border-bottom-left-radius: 10px;
+}
+button:first-child, button:nth-child(2) {
+  background-color: rgb(239, 157, 42);
+}
+button:last-child {
+  border-bottom-right-radius: 10px;
+}
+button:active {
+  background-color: rgb(155, 155, 155);
 }
