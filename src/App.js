@@ -3,7 +3,7 @@ import Buttons from './components/Buttons.js';
 import './styles/App.css';
 
 function App() {
-  const [currentValue, setCurrentValue] = useState('0');
+  const [currentValue, setCurrentValue] = useState("0");
   const [result, setResult] = useState(0);
   const [operators, setOperators] = useState({
     previous: '',
@@ -11,16 +11,59 @@ function App() {
   });
   const [isOperatorActive, setIsOperatorActive] = useState(false);
 
+  const buttons = [
+    "C",
+    "CE",
+    "%",
+    "/",
+    "7",
+    "8",
+    "9",
+    "*",
+    "4",
+    "5",
+    "6",
+    "-",
+    "1",
+    "2",
+    "3",
+    "+",
+    "0",
+    ".",
+    "=",
+  ];
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") {
+      handleClick("C");
+    } else if (e.key === "Backspace") {
+      handleClick("CE");
+    } else if (e.key === "Enter") {
+      handleClick("=");
+     } else if (buttons.includes(e.key)) {
+      handleClick(e.key);
+    } else {
+      return;
+    }
+  };
+  useEffect(() => {
+    document.body.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.removeEventListener("keydown", handleKeyDown)
+    }
+  });
+
   useEffect(() => {
     setCurrentValue(result);
   }, [result]);
 
+
   const handleNumber = (el) => {
     let newValue = currentValue;
     // delete the zero at the beginning
-    if (currentValue === '0') {
+    if (newValue === 0) {
       newValue = el;
-    } else if (currentValue !== 0 && isOperatorActive) {
+    } else if (newValue !== 0 && isOperatorActive) {
       newValue = el;
       setIsOperatorActive(false);
       setOperators((prevState) => {
@@ -113,13 +156,8 @@ function App() {
         return newState;
       });
     } else {
-      if (result === 0 && currentValue === 0 && el === "-") {
-        setCurrentValue("-");
-        return;
-      } else {
-        calcOperation(el);
-        setIsOperatorActive(true);
-      }
+      calcOperation(el);
+      setIsOperatorActive(true);
     }
   };
   return (
@@ -127,6 +165,7 @@ function App() {
       <div className="display">{currentValue}</div>
       <Buttons
         handleClick={handleClick}
+        buttons={buttons}
       />
     </div>
   );
